@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-/**
+/** test test test
  * The ReferenceData entity class maps to a database table/view for reference data.
  * It uses JPA annotations to define the table structure and Lombok annotations for boilerplate code like getters/setters.
  */

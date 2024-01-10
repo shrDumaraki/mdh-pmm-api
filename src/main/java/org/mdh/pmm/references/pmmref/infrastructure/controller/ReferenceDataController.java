@@ -9,6 +9,7 @@ import org.mdh.pmm.references.pmmref.domain.model.ReferenceData;
 import org.mdh.pmm.references.pmmref.usecase.ReferenceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,6 @@ import static org.mdh.pmm.references.constants.Paths.REFERENCE_DATA_PATH;
 
 @RestController
 @RequestMapping(BASE_PATH)
-// base_path=/mdh/pmm/v1/api/referencedata
 @AllArgsConstructor
 @Slf4j
 @ConditionalOnProperty(value = "spring.profiles.active", havingValue = "pmmref")
@@ -45,14 +45,17 @@ public class ReferenceDataController {
      * @return ResponseEntity containing the list of reference data or an error message.
      */
     @GetMapping(REFERENCE_DATA_PATH)
-    // REFERENCE_DATA_PATH=/retrieveinfo
+    @Cacheable(value = "dropdownData", key = "#category")
     public ResponseEntity<List<ReferenceData>> getDropdownData(@RequestParam String category) {
+        System.out.println("Loaded from the database");
         log.info("Received request for dropdown data with category: {}", category);
         return ResponseEntity.ok(referenceDataService.getDataByCategory(category));
     }
 
     @GetMapping("/all")
+    @Cacheable("allCategoriesWithValues")
     public ResponseEntity<List<ReferenceData>> getAllReferenceData() {
+        System.out.println("Getting this from DB");
         log.info("Received request for all reference data");
         List<ReferenceData> allData = referenceDataService.getAllReferenceData();
         return ResponseEntity.ok(allData);
@@ -62,6 +65,7 @@ public class ReferenceDataController {
     private ObjectMapper objectMapper;  // Autowire ObjectMapper
 
     @GetMapping("/categories")
+    @Cacheable("allCategoriesWithValues")
     public ResponseEntity<JsonNode> getAllCategories() {
         List<ReferenceData> allReferenceData = referenceDataService.getAllReferenceData();
 
