@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- Configuration for the 'mock' profile -->
+    <springProfile name="mock">
+        <logger name="org.mdh.pmm" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+
+    <!-- Configuration for the 'pmmref' profile -->
+    <springProfile name="pmmref">
+        <logger name="org.mdh.pmm" level="WARN" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+</configuration>

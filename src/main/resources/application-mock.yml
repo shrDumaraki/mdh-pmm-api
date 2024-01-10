@@ -1,0 +1,30 @@
+server:
+  port: 8091
+
+# Logging
+logging:
+  level:
+    org:
+      mdh:
+        pmm: DEBUG
+  file:
+    name: logs/mock/spring-boot-client-logs.log
+
+# OpenAPI Info from pom.xml
+
+app-name: @project.name@
+app-description: @project.description@
+app-version: @project.version@
+
+# SpringDoc Config
+
+springdoc:
+  api-docs:
+    path: /v1/openapi-docs
+  swagger-ui:
+    path: /v1/swagger-docs.html
+    disable-swagger-default-url: true
+    supportedSubmitMethods: [ ]
+
+
+

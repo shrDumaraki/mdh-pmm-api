@@ -1,0 +1,29 @@
+server:
+  port: 8090
+  
+
+# Logging
+logging:
+  level:
+    org:
+      mdh:
+        pmm: WARN
+  file:
+    name: logs/pmmref/spring-boot-client-logs.log
+
+# Spring Config
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+    hibernate:
+      ddl-auto: none
+
