@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import java.io.Serializable;
 
 /** test test test
  * The ReferenceData entity class maps to a database table/view for reference data.
@@ -14,7 +15,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "referencedata", schema = "public")
-public class ReferenceData {
+public class ReferenceData implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @JsonIgnore
     @Column(name = "audthashcd")

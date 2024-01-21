@@ -10,6 +10,7 @@ import org.mdh.pmm.references.pmmref.usecase.ReferenceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +32,10 @@ import static org.mdh.pmm.references.constants.Paths.REFERENCE_DATA_PATH;
 @AllArgsConstructor
 @Slf4j
 @ConditionalOnProperty(value = "spring.profiles.active", havingValue = "pmmref")
+@EnableCaching
 public class ReferenceDataController {
 
     private final ReferenceDataService referenceDataService;
-
-
 
     /**
      * Handles GET requests to retrieve dropdown data by category. Returns data in JSON format.
@@ -84,7 +84,6 @@ public class ReferenceDataController {
 
             ((ObjectNode) categoriesNode).putPOJO(category, categoryValues);
         }
-
         return ResponseEntity.ok(categoriesNode);
     }
 
